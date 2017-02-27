@@ -1,0 +1,143 @@
+The cpunish data set contains observations [Gill, 2001]. 
+The response variable (y) is the number of times that 
+capital punishment is implemented in a state for the 
+year 1997. The explanatory variables (X) are median 
+per capita income (dollars), the percent of the population 
+living in poverty, the percent of African-American citizens 
+in the population, the log(rate) of violent crimes per 
+100,000 residents in 1996, a variable indicating whether 
+a state is in the South, and the proportion of the population 
+with a college degree. The number of people with a college 
+degree contains those with an AA degree and above.
+
+
+Median per capita income (dollars)
+
+       34453
+       41534
+       35802
+       26954
+       31468
+       32552
+       40873
+       34861
+       42562
+       31900
+       37421
+       33305
+       32108
+       45844
+       34743
+       29709
+       36777
+
+Percent of population living in poverty
+
+
+   16.7000
+   12.5000
+   10.6000
+   18.4000
+   14.8000
+   18.8000
+   11.6000
+   13.1000
+    9.4000
+   14.3000
+    8.2000
+   16.4000
+   18.4000
+    9.3000
+   10.0000
+   15.2000
+   11.7000
+
+Percent African-Americon citizens in the population
+
+
+   12.2000
+   20.0000
+   11.2000
+   16.1000
+   25.9000
+    3.5000
+   15.3000
+   30.1000
+    4.3000
+   15.4000
+    8.2000
+    7.2000
+   32.1000
+   27.4000
+    4.0000
+    7.7000
+    1.8000
+
+The log-rate of violent crimes per 100,000 residents in 1996
+
+
+    6.4677
+    5.8608
+    6.3818
+    6.2615
+    6.3368
+    6.4489
+    6.7867
+    6.9048
+    6.0039
+    6.9575
+    6.2860
+    5.7714
+    6.8341
+    6.8363
+    6.0753
+    6.3919
+    6.1377
+
+Indicator variable - Southern state = 1
+
+
+     1
+     1
+     0
+     1
+     1
+     0
+     0
+     1
+     0
+     1
+     0
+     0
+     1
+     0
+     0
+     0
+     0
+
+Proportion of the population with a college degree
+
+
+    0.1600
+    0.2700
+    0.2100
+    0.1600
+    0.1900
+    0.2500
+    0.2500
+    0.2100
+    0.3100
+    0.2400
+    0.1900
+    0.1600
+    0.1800
+    0.2900
+    0.2400
+    0.2100
+    0.2500
+
+
+
+
+
+

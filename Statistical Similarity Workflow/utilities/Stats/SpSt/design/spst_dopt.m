@@ -1,0 +1,147 @@
+function R = spst_dopt(D, t, nsel, options)
+% 
+% R = spst_dopt(D, t, nsel, options)
+%
+% D-optimum Design of a subset of nsel UNIQUE points from a candidate set D
+% 
+% Input:    D       Candidate points (m,n). 
+%                   Rows=observations, columns=variables.
+%
+%           t       Logical array (m,1). t=true: Rows are included in design
+%                   set t = [] to use all points.
+%
+%           nsel    Number of points to select
+%
+%           options Options struct variable. Default values are indicated
+%                   by *asterisks*.
+%
+%           options.iter    *20*  Number of random starting designs to try.
+%
+% Output:   R       Logical array (m,1) into D. Subset of nsel datapoints
+%                   fulfilling D-optimality
+%
+% Copyright:        Sebastian Rohrer
+%                   University of Braunschweig, Institute of Technology
+%                   Department of Pharmaceutical Chemistry
+%                   2008
+%
+
+
+% gobal variable start_des_tries: how often to try to find a radom starting
+% design of full rank
+start_des_tries = 20;
+maxiter = 10;
+
+% get dataset size
+[m n] = size(D);
+
+% use all points, if no preselection is made
+if (size(t,1) == 0)
+    t = true(m,1);
+end
+it = find(t);
+
+% initialize
+R = false(m,1);
+
+% initialize random number generator. Comment out to use a new seed at each call.
+old = rand('state');
+rand('state', 0);
+
+global_best_det = -Inf;
+
+for i = 1:options.iter
+    % generate starting design with full rank
+    
+    rrank = 0;
+    iter = 0;
+    while (rrank < min(nsel, n) && iter < start_des_tries)
+        tt = randperm(size(it,1));
+        ir = it(tt(1:nsel),1);
+        rrank = rank(D(ir,:));
+        iter = iter+1;
+    end
+    
+    %keep starting design, in case no better design can be found
+    start_ir = ir;
+    
+    % exit with error, if no starting design with full rank can be found
+    if (iter == start_des_tries && rrank < min(nsel, n) && i == 1)
+        %error('spst_dopt: no starting design of full rank found.');
+    end
+    
+    % get points not in set
+    inr = setdiff(it, ir);
+    %ir
+    
+    % calculate det and off we go...
+    [Q RR] = qr(D(ir,:),0);
+    
+    ldr = 2*sum(log(abs(diag(RR))));
+    F = [];
+    
+    iter = 0;
+    exchanged = true;
+    
+    while (exchanged && iter < maxiter)
+        
+        exchanged = false;
+        iter = iter+1;
+        
+        for row = 1:nsel
+            if (isempty(F))
+                F = D(inr,:)/RR;
+                dxc = sum(F.*F, 2);
+            end
+      
+            E = D(ir(row),:)/RR;
+            dxo = E*E';
+            dxs  = F*E';
+            
+            dd = (1+dxc) * (1-dxo) + dxs.^2;
+            % Find the maximum change in the determinant.
+      
+            [d,idx] = max(dd);
+            
+            if (d > 0.2)
+                exchanged = true;
+         
+                % do the actual exchange
+                % avoid setdiff for speed
+                swap = ir(row,1);
+                ir(row,1) = inr(idx,1);
+                inr(idx,1) = swap;
+                
+                % recompute the 
+                [Q,RR] = qr(D(ir,:),0);
+                ldr = ldr + d;
+                %ldr = 2*sum(log(abs(diag(RR))));
+                
+                F = [];  % needs re-computing using new RR
+            end
+        end
+        
+    end
+    
+    % set R to the design, if the determinant is better than the last one
+    if (ldr > global_best_det)
+        R = false(m,1);
+        R(ir,1) = true;
+        global_best_det = ldr;
+    % if the determinant can't be improved, set R to the random starting design    
+    elseif(global_best_det == -Inf)
+        R = false(m,1);
+        R(start_ir,1) = true;
+    end
+end
+
+% issue warning, if not design was found 
+if (global_best_det == -Inf)
+    warning('No design with optimal determinant could be found. Using RANDOM starting design.');
+end
+    
+
+% reset state of random numbers generator
+rand('state', old);
+            
+            

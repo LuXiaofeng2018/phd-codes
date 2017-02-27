@@ -1,0 +1,47 @@
+function R = spst_onion(D, t, nsel, nlayers, options)
+
+% get dataset size
+[m n] = size(D);
+
+R = false(m,1);
+
+% use all points, if no preselection is made
+if (size(t,1) == 0)
+    t = true(m,1);
+end
+
+% Calculate center of mass
+
+CoM = mean(D(t,:));
+
+% Calculate distance to center of mass
+d2C = distance(D, CoM, options.distmode);
+
+% calculate nperlayer
+nperlayer = nsel/nlayers;
+
+if (floor(nperlayer) ~= nperlayer)
+    error('spst_onion: nsel must be divisible by nlayers!!');
+end
+
+% caculate layers
+layerthickness = floor(m/nlayers);
+layers = 1:layerthickness:m;
+[sd2C, IdD] = sort(d2C, 1, 'ascend');
+
+for i=1:nlayers-1
+    
+    ti = false(m,1);
+    ti(IdD(layers(i):layers(i+1),1),1) = true;
+    
+    r = spst_dopt(D, ti, nperlayer, options);
+    
+    R(r,1) = true;
+end
+
+% last layer
+ti(IdD(layers(nlayers):m,1),1) = true;
+r = spst_dopt(D, ti, nperlayer, options);
+
+R(r,1) = true;
+

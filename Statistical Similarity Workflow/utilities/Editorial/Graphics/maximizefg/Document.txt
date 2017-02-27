@@ -1,0 +1,52 @@
+Examples:
+
+maximize the current figure 
+---------------------------- 
+maximize;
+
+maximize the current figure 
+---------------------------- 
+maximize(gcf);
+
+maximize the specified figure 
+------------------------------ 
+h = figure; 
+maximize(h);
+
+maximize the application window 
+-------------------------------- 
+maximize(0);
+
+maximize more than one figure 
+------------------------------ 
+h(1) = figure; 
+h(2) = figure; 
+maximize(h);
+
+maximize all figures 
+--------------------- 
+maximize('all');
+
+maximize a GUI in the OpeningFcn 
+---------------------------------
+
+% --- Executes just before untitled is made visible. 
+function untitled_OpeningFcn(hObject, eventdata, handles, varargin) 
+% This function has no output args, see OutputFcn. 
+% hObject handle to figure 
+% eventdata reserved - to be defined in a future version of MATLAB 
+% handles structure with handles and user data (see GUIDATA) 
+% varargin command line arguments to untitled (see VARARGIN)
+
+% Choose default command line output for untitled 
+handles.output = hObject;
+
+% Update handles structure 
+guidata(hObject, handles);
+
+% UIWAIT makes untitled wait for user response (see UIRESUME) 
+% uiwait(handles.figure1);
+
+% maximize the GUI 
+set(hObject,'Visible','on'); 
+maximize(hObject);

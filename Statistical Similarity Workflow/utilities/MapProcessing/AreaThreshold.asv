@@ -1,0 +1,20 @@
+% -------------------------------------------------------------------------
+% denoise 2D pixel plots
+% -------------------------------------------------------------------------
+% Input:
+%       Map: raw binary map, with NAN for no data
+%       th: area threshold
+% Output:
+%       CleanMap: binary matrix showing cleaned map
+function CleanMap = AreaThreshold(Map, th)
+    bwMap = double(~isnan(Map));
+    
+    ccMap = bwconncomp(bwMap,8);
+    lbMap = labelmatrix(ccMap);    
+    properties = regionprops(ccMap,'basic');
+    ccAreas = [properties.Area];
+    
+    Clean = false(size(bwMap));
+    grain(cc.PixelIdxList{50}) = true;
+    imshow(grain);
+end

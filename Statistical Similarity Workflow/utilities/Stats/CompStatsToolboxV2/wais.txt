@@ -1,0 +1,67 @@
+This data set was taken from Dobson [2002] and 
+is used to demonstrate logistic regression. 
+These data comprise a sample of older people who 
+were tested using a subset of the Wechsler Adult 
+Intelligent Scale (WAIS). The testers recorded whether 
+or not symptoms of senility were present (success, y = 1 ) 
+or not (failure, y = 0 ). The explanatory or predictor 
+variable is the WAIS score.
+
+
+wais =
+
+     9     1
+    13     1
+     6     1
+     8     1
+    10     1
+     4     1
+    14     1
+     8     1
+    11     1
+     7     1
+     9     1
+     7     1
+     5     1
+    14     1
+    13     0
+    16     0
+    10     0
+    12     0
+    11     0
+    14     0
+    15     0
+    18     0
+     7     0
+    16     0
+     9     0
+     9     0
+    11     0
+    13     0
+    15     0
+    13     0
+    10     0
+    11     0
+     6     0
+    17     0
+    14     0
+    19     0
+     9     0
+    11     0
+    14     0
+    10     0
+    16     0
+    10     0
+    16     0
+    14     0
+    13     0
+    13     0
+     9     0
+    15     0
+    10     0
+    11     0
+    12     0
+     4     0
+    14     0
+    20     0
+

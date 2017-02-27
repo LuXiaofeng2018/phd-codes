@@ -1,0 +1,3 @@
+ histNorm(dataSets) plots normalized histogram of each set of data contained in cell dataSets for comparison. The xlims are set to 3 times the maximum standard deviation from the mean of all each set. The default bin sizes are a tenth of the standard deviation. h is the handle of the bar plot, meanD and stdD are returned mean and std of dataSets.
+
+Switches can specify bin size, legend entries, label statistics.
